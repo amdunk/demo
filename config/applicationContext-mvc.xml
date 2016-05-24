@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+
+    <!-- 代理模式采用cglib -->	   
+    <!-- <aop:config proxy-target-class="true"></aop:config> -->
+
+    <!-- 开启controller注解支持 -->
+    <context:component-scan base-package="com.book.controller.*" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <!-- 上传文件配置 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+    
+    <!-- freemark 设置 -->
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">  
+	    <property name="templateLoaderPath" value="/vm/" />  
+	    <property name="freemarkerSettings">  
+	        <props>  
+	            <prop key="template_update_delay">0</prop>  
+	            <prop key="default_encoding">UTF-8</prop>  
+	            <prop key="number_format">0.##########</prop>  
+	            <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>  
+	            <prop key="classic_compatible">true</prop>  
+	            <prop key="template_exception_handler">ignore</prop>  
+	        </props>  
+	    </property>  
+	</bean>  
+	
+    <!--视图解释器 -->  
+    <bean id="viewResolver"  class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">  
+        <property name="suffix">  
+            <value>.html</value>  
+        </property>  
+        <property name="contentType" value="text/html;charset=UTF-8"></property>  
+    </bean>  
+
+     <!-- @RequestBody 转换json-->
+    <mvc:annotation-driven>
+	    <mvc:message-converters>
+	        <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4">
+	            <!-- MediaTypes -->
+	            <property name="supportedMediaTypes">
+	                <list>
+	                    <value>application/json;</value>
+	                </list>
+	            </property>
+	            <!-- FastJsonConfig -->
+	            <!-- <property name="fastJsonConfig" ref="fastJsonConfig" /> -->
+	        </bean>
+	    </mvc:message-converters>
+	</mvc:annotation-driven>
+	
+     <!-- 当在web.xml 中   DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
+	<mvc:default-servlet-handler />
+  
+</beans>
