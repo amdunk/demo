@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.book.model.admin.Admin;
+
 /**
  * Servlet Filter implementation class LoginFilter
  */
@@ -49,14 +51,14 @@ public class LoginFilter implements Filter {
 		 // 获得用户请求的URI
 		String path = servletRequest.getRequestURI();
 		
-//		Admin admin = session.getAttribute("admin");
+		Admin admin = (Admin) session.getAttribute("user");
 		
 		if(path.indexOf("/login") > -1) {
 			 chain.doFilter(servletRequest, servletResponse);
 			 return;
 		}
 		
-		if(){
+		if(admin == null){
 			// 跳转到登陆页面
 			servletResponse.sendRedirect("/JingXing_OA/login.jsp");
 		} else {
