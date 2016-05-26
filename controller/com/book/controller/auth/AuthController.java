@@ -22,6 +22,13 @@ public class AuthController {
 	@Autowired
 	private IAuthService authService;
 	
+	@RequestMapping(value = "/")
+	public String index(HttpServletRequest request, HttpServletResponse response){
+		logger.info("auth");
+		
+		return "login/login";
+	}
+	
 	@RequestMapping(value = "/login")
 	public String login(HttpServletRequest request, HttpServletResponse response){
 		

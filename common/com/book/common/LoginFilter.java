@@ -53,19 +53,21 @@ public class LoginFilter implements Filter {
 		
 		Admin admin = (Admin) session.getAttribute("user");
 		
-		if(path.indexOf("/login") > -1) {
-			 chain.doFilter(servletRequest, servletResponse);
-			 return;
-		}
-		System.out.println(path);
-		
-//		if(admin == null){
-//			// 跳转到登陆页面
-//			servletResponse.sendRedirect(path + "/login");
-//		} else {
-//			// 已经登陆,继续此次请求
-//			chain.doFilter(request, response);
+//		if(path.indexOf("/auth") > -1) {
+//			 chain.doFilter(servletRequest, servletResponse);
+//			 return;
 //		}
+//		
+		if(admin == null){
+			// 跳转到登陆页面
+			String url ="/auth/";
+//			servletResponse.sendRedirect(url);
+			System.out.println(url);
+			servletRequest.getRequestDispatcher(url).forward(request, response);
+		} else {
+			// 已经登陆,继续此次请求
+			chain.doFilter(request, response);
+		}
 		
 	}
 
