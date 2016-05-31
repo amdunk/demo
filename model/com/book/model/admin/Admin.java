@@ -3,7 +3,7 @@ package com.book.model.admin;
 import java.util.Date;
 
 public class Admin {
-    private Integer id;
+	private Integer id;
 
     private String username;
 
@@ -52,4 +52,10 @@ public class Admin {
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
     }
+    
+    @Override
+	public String toString() {
+		return "Admin [id=" + id + ", username=" + username + ", password=" + password + ", createdBy=" + createdBy
+				+ ", createdOn=" + createdOn + "]";
+	}
 }

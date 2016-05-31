@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.book.model.admin.Admin;
 import com.book.service.auth.IAuthService;
 @RunWith(SpringJUnit4ClassRunner.class) 
 @ContextConfiguration(locations="classpath:applicationContext.xml")
@@ -21,7 +22,7 @@ public class TestAuth {
 		String username = "admin";
 		String password = "admin";
 		
-		authService.findAdmin(username, password);
+		Admin admin = authService.findAdmin(username, password);
 	}
 
 }
