@@ -1,8 +1,12 @@
 package com.book.model.admin;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Admin {
+public class Admin implements Serializable {  
+	
+	private static final long serialVersionUID = -7898194272883238670L;  
+	
 	private Integer id;
 
     private String username;
@@ -13,7 +17,18 @@ public class Admin {
 
     private Date createdOn;
 
-    public Integer getId() {
+    public Admin(){}
+    
+    public Admin(Integer id, String username, String password,
+			String createdBy, Date createdOn) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.createdBy = createdBy;
+		this.createdOn = createdOn;
+	}
+
+	public Integer getId() {
         return id;
     }
 
